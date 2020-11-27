@@ -26,28 +26,32 @@ app.title = "Stock Network"
 
 app.layout = layout
 
+server = app.server
+
 ###################################callback for left side components
 @app.callback(
     dash.dependencies.Output('my-graph', 'figure'),
     [dash.dependencies.Input('datepicker-range', 'start_date'), dash.dependencies.Input('datepicker-range', 'end_date'),
-    dash.dependencies.Input('color_option', 'value'), dash.dependencies.Input('size_option', 'value')]
+    dash.dependencies.Input('color_option', 'value'), dash.dependencies.Input('size_option', 'value'), dash.dependencies.Input('threshold', 'value'),
+    dash.dependencies.Input('node-distance', 'value'), dash.dependencies.Input('iterations', 'value'), dash.dependencies.Input('window-size', 'value')]
 )
-def update_output(start_date, end_date, color, size):
+def update_output(start_date, end_date, color, size, threshold, noded, iterations, window):
     begin, end = start_date, end_date
     global plot
     global G
-    plot, G = main(start=start_date, stop=end_date, mark_color = color, mark_size = size)
+    plot, G = main(start=start_date, stop=end_date, mark_color = color, mark_size = size, threshold=threshold, node_distance=noded, simulation_iterations=iterations,
+    rolling_window_size=window)
     return plot
     # to update the global variable of YEAR and ACCOUNT
 
 
 
 ################################callback for right side components
-@app.callback(
-    dash.dependencies.Output('hoverDataBox', 'children'),
-    [dash.dependencies.Input('my-graph', 'hoverData')])
-def display_hover_data(hoverData):
-    return json.dumps(hoverData, indent=2)
+# @app.callback(
+#     dash.dependencies.Output('hoverDataBox', 'children'),
+#     [dash.dependencies.Input('my-graph', 'hoverData')])
+# def display_hover_data(hoverData):
+#     return json.dumps(hoverData, indent=2)
 
 
 @app.callback(

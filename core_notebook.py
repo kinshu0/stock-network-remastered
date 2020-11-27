@@ -130,7 +130,8 @@ def load_preprocess(data_folder):
 # In[26]:
 
 
-def create_graph(data, start, stop, tickers_to_show, rolling_window_size, threshold, additional_ticker_properties):
+def create_graph(data, start, stop, tickers_to_show, rolling_window_size, threshold, additional_ticker_properties,
+                node_distance = 0.6, simulation_iterations = 100):
     data.sort_index(inplace=True)
     rolled = rolling_window_preprocess(data[start:stop][tickers_to_show], rolling_window_size)
     connections = get_edges(rolled, threshold)
@@ -139,7 +140,7 @@ def create_graph(data, start, stop, tickers_to_show, rolling_window_size, thresh
     G.add_nodes_from(tickers_to_show)
     G.add_edges_from(zip(connections[0], connections[1]))
     
-    node_properties_df = get_node_metrics(G)
+    node_properties_df = get_node_metrics(G, node_distance, simulation_iterations)
     gain_loss_df = (data + 1.00).prod()
     gain_loss_df.name = 'gain_loss'
     updated_node_properties = pd.concat([node_properties_df, additional_ticker_properties, gain_loss_df], axis=1, join='inner')
@@ -165,7 +166,7 @@ def plot_graph(node_properties, edge_x, edge_y, layout, graph_attrs):
     )
     lolz.add_scatter(
         x=edge_x, y=edge_y,
-        line=dict(width=0.5, color='#888'),
+        line=dict(width=0.5, color='rgba(120, 120, 120, 0.3)'),
         mode='lines'
     )
     return lolz
@@ -211,7 +212,7 @@ all_da_arguments = dict(
 def main(start = '2020-01-01', stop = '2020-11-23', tickers_to_show = all_tickers,
         rolling_window_size = 30, threshold = 0.75,
         additional_ticker_properties = pd.read_csv('symbols.csv', index_col='Ticker'),
-        mark_color = 'sector', mark_size = 'ns'):
+        mark_color = 'sector', mark_size = 'ns', node_distance = 0.6, simulation_iterations = 100):
     
     layout = dict(
         height = 700,
@@ -224,7 +225,8 @@ def main(start = '2020-01-01', stop = '2020-11-23', tickers_to_show = all_ticker
 
 
     node_properties, edge_x, edge_y, G = create_graph(data, start, stop, tickers_to_show,
-                                                   rolling_window_size, threshold, additional_ticker_properties)
+                                                   rolling_window_size, threshold, additional_ticker_properties,
+                                                   node_distance, simulation_iterations)
 
     # if mark_color == '#fffb91':
     #     plot = plot_graph(node_properties, edge_x, edge_y, layout,
