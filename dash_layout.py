@@ -3,14 +3,14 @@ import dash_html_components as html
 from dash_dangerously_set_inner_html import DangerouslySetInnerHTML
 import numpy as np
 
-from core_notebook import main
+# from core_notebook import main
 from datetime import date
 
 from dash_table import DataTable
 
 begin, end = '2007-01-01', '2008-12-31'
 
-plot, G = main(begin, end)
+# plot, G = main(begin, end, tickers_to_show=all_ticke)
 
 da_table = ''
 
@@ -113,10 +113,7 @@ left_menu = html.Div([
     className="col-2 p-3 d-flex flex-column"
 )
 
-middle_graph = html.Div(
-    [dcc.Graph(id="my-graph", figure=plot)],
-    className="col-8",
-)
+
 
 right_menu = html.Div([
         # html.Div([
@@ -159,33 +156,7 @@ styles = {
     }
 }
 
-layout = html.Div([
-    ########################################################################################### Navigation Bar
-    html.Nav(
-        [
-            html.A(
-                'Stock Network Graph', className = 'h1 m-2 text-dark', href = '#', id = 'navicon', style = {'text-decoration': 'none'}
-            ),
-            html.A(
-                'Created by Kinshu Gupta', className = 'align-self-end', href = 'mailto:kinshugupta2002@gmail.com'
-            )
-        ],
-        className = 'navbar d-flex navbar-expand-lg navbar-light bg-light',
-    ),
-    
-    #############################################################################################define the row
-    html.Div([
-        html.Div(
-            [
-                left_menu,
-                middle_graph,
-                right_menu,
-            ],
-            className = 'row'
-        ),
-    ], className="container-fluid d-flex justify-content-around",)
 
-], className='', style = {})
 
 
 

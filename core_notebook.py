@@ -194,11 +194,6 @@ def plot_graph(node_properties, edge_x, edge_y, layout, graph_attrs):
 # In[28]:
 
 
-data_folder = 'ticker_data'
-data = load_preprocess(data_folder)
-
-all_tickers = list(data.columns)
-
 all_da_arguments = dict(
     start = '2020-01-01', stop = '2020-11-23',
     tickers_to_show = ['A', 'MMM', 'GOOG', 'AAPL'],
@@ -209,10 +204,10 @@ all_da_arguments = dict(
 
 
 
-def main(start = '2020-01-01', stop = '2020-11-23', tickers_to_show = all_tickers,
+def main(start = '2020-01-01', stop = '2020-11-23',
         rolling_window_size = 30, threshold = 0.75,
         additional_ticker_properties = pd.read_csv('symbols.csv', index_col='Ticker'),
-        mark_color = 'sector', mark_size = 'ns', node_distance = 0.6, simulation_iterations = 100):
+        mark_color = 'sector', mark_size = 'ns', node_distance = 0.6, simulation_iterations = 100, tickers_to_show = None, data = None):
     
     layout = dict(
         height = 700,
