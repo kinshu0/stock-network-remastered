@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import dash
-import dash_core_components as dcc
-import dash_html_components as html
+# import dash_core_components as dcc
+from dash import dcc
+# import dash_html_components as html
+from dash import html
 import networkx as nx
 import plotly.graph_objs as go
 
@@ -53,7 +55,7 @@ layout = html.Div([
                 'Stock Network Graph', className = 'h1 m-2 text-dark', href = '#', id = 'navicon', style = {'text-decoration': 'none'}
             ),
             html.A(
-                'Created by Kinshu Gupta', className = 'align-self-end', href = 'mailto:kinshugupta2002@gmail.com'
+                'Kinshu Gupta', className = 'align-self-end', href = 'mailto:kinshugupta2002@gmail.com'
             )
         ],
         className = 'navbar d-flex navbar-expand-lg navbar-light bg-light',

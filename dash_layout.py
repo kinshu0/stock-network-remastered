@@ -1,12 +1,15 @@
-import dash_core_components as dcc
-import dash_html_components as html
+# import dash_core_components as dcc
+from dash import dcc
+# import dash_html_components as html
+from dash import html
 from dash_dangerously_set_inner_html import DangerouslySetInnerHTML
 import numpy as np
 
 # from core_notebook import main
 from datetime import date
 
-from dash_table import DataTable
+# from dash_table import DataTable
+from dash import dash_table
 
 begin, end = '2007-01-01', '2008-12-31'
 
