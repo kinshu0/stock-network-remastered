@@ -92,6 +92,7 @@ def update_output(start_date, end_date, color, size, threshold, noded, iteration
     rolling_window_size=window, tickers_to_show=all_tickers, data=data)
     return plot
     # to update the global variable of YEAR and ACCOUNT
+    # red
 
 
 
